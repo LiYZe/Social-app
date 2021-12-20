@@ -1,27 +1,28 @@
-# Social-app
+# Tweet_App
 
 ## API
 
+### App
 
-### Create a new Tweet
+#### Create a new Tweet
 
 |  Method   | url  | function |
 |  ----     | ----  | ---- |
 | POST      | app/tweet/ | addTweet(Integer tweetID, String Content)|
 
-### Check a Tweet
+#### Check a Tweet
 
 |  Method   | url  |function |
 |  ----     | ----  |  ----  |
 |  GET     | app/tweet/{tweet_id}| getTweet(Integer tweetId)|
 
-### Update a Tweet
+#### Update a Tweet
 
 |  Method   | url  |function |
 |  ----     | ----  |  ----  |
-|  PUT     | app/tweet/{tweet_id}| updateTweet(Integer tweetId)|
+|  PUT     | app/tweet/{tweet_id}| updateTweet(Integer tweetId, String newContent)|
 
-### Delete a Tweet
+#### Delete a Tweet
 
 |  Method   | url  |function |
 |  ----     | ----  |  ----  |
