@@ -2,29 +2,45 @@
 
 ## API
 
-### App
+### Tweet
 
 #### Create a new Tweet
 
 |  Method   | url  | function |
 |  ----     | ----  | ---- |
-| POST      | app/tweet/ | addTweet(Integer tweetID, String Content)|
+| POST      | /tweet/ | postTweet(Integer tweetID, String tweetcontent)|
 
 #### Check a Tweet
 
 |  Method   | url  |function |
 |  ----     | ----  |  ----  |
-|  GET     | app/tweet/{tweet_id}| getTweet(Integer tweetId)|
+|  GET     | /tweet/{tweet_id}| getTweet(Integer tweetId)|
 
 #### Update a Tweet
 
 |  Method   | url  |function |
 |  ----     | ----  |  ----  |
-|  PUT     | app/tweet/{tweet_id}| updateTweet(Integer tweetId, String newContent)|
+|  PUT     | /tweet/{tweet_id}| updateTweet(Integer tweetId, String tweetcontent)|
 
 #### Delete a Tweet
 
 |  Method   | url  |function |
 |  ----     | ----  |  ----  |
-|  DELETE     | app/tweet/{tweet_id}| deleteTweet(Integer tweetId)|
+|  DELETE     | /tweet/{tweet_id}| deleteTweet(Integer tweetId)|
+
+#### Make a comment
+
+|  Method   | url  |function |
+|  ----     | ----  |  ----  |
+|  POST     | /tweet/comment/| postComment(Integer tweetId, String comment)|
+
+#### Delete a commment
+
+|  Method   | url  |function |
+|  ----     | ----  |  ----  |
+|  DELETE     | /tweet/comment/{tweet_id}| deleteComment(Integer tweetId)|
+
+#### Retweet
+
+
 
