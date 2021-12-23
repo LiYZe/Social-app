@@ -41,7 +41,7 @@
 |    |  Method   | url  | 
 |----|  ----     | ----  |
 |  sign up  |  POST     | /user/ |
-|  sign in       |  GET      | /user/ | 
+|  sign in       |  GET      | /user/{id} | 
 
 #### Follow
 
