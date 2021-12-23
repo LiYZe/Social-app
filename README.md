@@ -4,43 +4,54 @@
 
 ### Tweet
 
-#### Create a new Tweet
+#### Tweet
 
-|  Method   | url  | function |
-|  ----     | ----  | ---- |
-| POST      | /tweet/ | postTweet(Integer tweetID, String tweetcontent)|
+|    |  Method   | url  |
+|----|  ----     | ----  | 
+|  Create a new Tweet  | POST     | /tweet/  | 
+|  Check a Tweet       |  GET     | /tweet/{tweet_id} | 
+|  Update a Tweet      |  PUT     | /tweet/{tweet_id} | 
+|  Delete a Tweet      |  DELETE  | /tweet/{tweet_id} | 
 
-#### Check a Tweet
+#### Comment
 
-|  Method   | url  |function |
-|  ----     | ----  |  ----  |
-|  GET     | /tweet/{tweet_id}| getTweet(Integer tweetId)|
-
-#### Update a Tweet
-
-|  Method   | url  |function |
-|  ----     | ----  |  ----  |
-|  PUT     | /tweet/{tweet_id}| updateTweet(Integer tweetId, String tweetcontent)|
-
-#### Delete a Tweet
-
-|  Method   | url  |function |
-|  ----     | ----  |  ----  |
-|  DELETE     | /tweet/{tweet_id}| deleteTweet(Integer tweetId)|
-
-#### Make a comment
-
-|  Method   | url  |function |
-|  ----     | ----  |  ----  |
-|  POST     | /tweet/comment/| postComment(Integer tweetId, String comment)|
-
-#### Delete a commment
-
-|  Method   | url  |function |
-|  ----     | ----  |  ----  |
-|  DELETE     | /tweet/comment/{tweet_id}| deleteComment(Integer tweetId)|
-
+|    |  Method   | url  |
+|----|  ----     | ----  | 
+|  Make a comment      |  POST     | /tweet/{tweet_id}/comment/ |
+|  Delete a commment   |  DELETE   | /tweet/{tweet_id}/comment/ |
 #### Retweet
+
+|    |  Method   | url  | 
+|----|  ----     | ----  | 
+|  Retweet by a user      |  GET     | /user/{id}/retweet |
+
+#### Likes
+
+|    |  Method   | url  | 
+|----|  ----     | ----  |
+|  User like a tweet  |  POST     | /user/{id}/like | 
+|  User undo like  |  DELETE     | /user/{id}/like/{tweet_id} |
+|  Tweet liked by a user   |  GET     | /tweet/{tweet_id}/liking_user | 
+|  User who like a tweet   |  GET     | /user/{id}/liked_tweet |
+
+### User
+
+#### User
+
+|    |  Method   | url  | 
+|----|  ----     | ----  |
+|  sign up  |  POST     | /user/ |
+|  sign in       |  GET      | /user/ | 
+
+#### Follow
+
+|    |  Method   | url  | 
+|----|  ----     | ----  | 
+|  follow a user  |  POST     | /user/{id}/following |
+|  unfollow a user|  DELETE   | /user/{source_user_id}/following/{target_user_id} | 
+| check following | Get | /user/{id}/following |
+| Check follower | GET |/user/{id}/follower|
+
 
 
 
