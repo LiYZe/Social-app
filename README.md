@@ -9,7 +9,7 @@
 |    |  Method   | url  |
 |----|  ----     | ----  | 
 |  Create a new Tweet  | POST     | /tweet/  | 
-|  Check a Tweet       |  GET     | /tweet/{tweet_id} | 
+|  Retrieve a Tweet       |  GET     | /tweet/{tweet_id} | 
 |  Update a Tweet      |  PUT     | /tweet/{tweet_id} | 
 |  Delete a Tweet      |  DELETE  | /tweet/{tweet_id} | 
 
