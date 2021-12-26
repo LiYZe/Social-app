@@ -11,6 +11,7 @@ public class Retweet_controller {
     //Retweet by a user
     @GetMapping("user/{id}/retweet")
     public Retweet user_retweet(@PathVariable("{id}") String id){
-        return new Retweet();
+        Retweet new_r = new Retweet();
+        return new_r;
     }
 }
