@@ -12,12 +12,14 @@ public class Comment_controller {
     //Post a Comment
     @PostMapping("/tweet/{tweet_id}/comment/")
     public Comment postComment(@PathVariable("{tweet_id}") String tweet_id) {
-        return new Comment();
+        Comment new_comment = new Comment();
+        return new_comment;
     }
 
     //Delete a Comment
     @DeleteMapping("/tweet/{tweet_id}/comment/")
     public boolean deleteComment(@PathVariable("{tweet_id}") String tweet_id) {
+        Comment new_comment = new Comment();
         return true;
     }
 }
