@@ -17,9 +17,9 @@ public class Tweet_controller {
 
     //retrieve a Tweet
     @GetMapping("/tweet/{tweet_id}")
-    public Tweet getTweet(@PathVariable("tweet_id") String tweeet_id) {
+    public Tweet getTweet(@PathVariable("tweet_id") String tweet_id) {
         Tweet t = new Tweet();
-        t.setTweet_id("1");
+        t.setTweet_id(tweet_id);
         t.setContent("test");
         return t;
     }
