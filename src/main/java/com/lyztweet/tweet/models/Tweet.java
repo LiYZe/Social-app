@@ -1,25 +1,33 @@
 package com.lyztweet.tweet.models;
 
+import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.List;
+
+@Entity
+@Table(name = "tweet")
 public class Tweet {
-    private String tweet_id;
+
+    private static final long serialVersionUID = -2343243243242432341L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public long tweet_id;
+
+    @Column(name = "content")
     public String content;
 
-    public Tweet() {
-    }
+    @Column(name = "time_line")
+    private Timestamp time_line;
 
-    public String getTweet_id() {
-        return tweet_id;
-    }
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "comment_tweetid")
+    public List<Comment> comments;
 
-    public void setTweet_id(String tweet_id) {
-        this.tweet_id = tweet_id;
-    }
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "liking_user")
+    public List<Likes> liking_user;
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "retweet_user_id")
+    public List<Retweet> retweet_user_id;
 }

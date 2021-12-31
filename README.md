@@ -53,6 +53,59 @@
 | check following | Get | /user/{id}/following |check_following(String id)| LinkedList< User > |
 | Check follower | GET |/user/{id}/follower|check_follower(String id) | LinkedList< User > |
 
+## Entity
 
+### Tweet
 
+| Key | Type     | Column          |
+|-----|----------|-----------------|
+| PK  | long     | Tweet_id        |
+|     | String   | Content         |
+|     | Timestap | Time_Line       |
+|     | List< Comment >  | comments        |
+|     | List< Likes >    | liking_user     |
+|     | List< Retweet >  | retweet_user_id |
 
+### Comment
+
+| Key | Type  | Column     |
+|-----|-------|------------|
+| PK  | long  | comment_id |
+|     | Tweet | comment_tweet_id  |
+|     | User  | comment_user_id   |
+
+### Retweet
+
+| Key | Type  | Column          |
+|-----|-------|-----------------|
+| PK  | long  | retweet_id      |
+|     | Tweet | retweet_tweetid |
+|     | User  | retweeet_userid |
+
+### User
+
+| Key | Type            | Column           |
+|-----|-----------------|------------------|
+| PK  | long            | id               |
+|     | String          | username         |
+|     | String          | passwords        |
+|     | List< Follow >  | follower         |
+|     | List< Comment >  | comment          |
+|     | List< Likes >   | likes            |
+|     | List< Retweet > | retweet_tweet_id |
+
+### Follow
+
+| Key | Type            | Column    |
+|-----|-----------------|-----------|
+| PK  | long            | follow_id |
+|     | User            | followed  |
+|     | User            | following |
+
+### Likes
+
+| Key | Type  | Column      |
+|-----|-------|-------------|
+| PK  | long  | likes_id    |
+|     | Tweet | liked_tweet |
+|     | User  | liking_user |
