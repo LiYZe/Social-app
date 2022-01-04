@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "Likes")
 public class Likes {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,6 +17,14 @@ public class Likes {
     @ManyToOne
     @JoinColumn(name = "liking_user")
     User liking_user;
+
+    public void setLiked_tweet(Tweet liked_tweet) {
+        this.liked_tweet = liked_tweet;
+    }
+
+    public void setLiking_user(User liking_user) {
+        this.liking_user = liking_user;
+    }
 
     public Likes() {
     }

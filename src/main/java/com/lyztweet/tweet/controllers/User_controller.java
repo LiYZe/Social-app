@@ -1,28 +1,28 @@
 package com.lyztweet.tweet.controllers;
 
+import com.lyztweet.tweet.Repositories.UserRepository;
 import com.lyztweet.tweet.models.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class User_controller {
 
+    @Autowired
+    UserRepository userRepository;
     //Sign Up
     @PostMapping("/user")
-    public User Sign_Up() {
-        User u = new User();
-        u.setId("1");
-        u.setUsername("1");
-        u.setPasswords("1");
-        return u;
+    public String Sign_Up() {
+        userRepository.save(new User("123","123"));
+        return "User is create";
     }
 
     //Sign In
     @GetMapping("/user/{id}")
-    public boolean Sign_In(@PathVariable("id") String ID){
-        User u = new User();
-        u.setId("2");
-        u.setUsername("2");
-        u.setPasswords("2");
-        return true;
+    public List<User> Sign_In(@PathVariable("id") long id){
+        List<User> User = userRepository.findById(id);
+        return User;
     }
 }

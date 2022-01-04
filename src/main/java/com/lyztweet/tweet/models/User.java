@@ -11,16 +11,16 @@ public class User {
     private long id;
 
     @Column(name = "username")
-    private String Username;
+    public String username;
 
     @Column(name = "passwords")
-    private String Passwords;
+    public String passwords;
 
     @OneToMany(mappedBy = "Follow")
     private List<Follow> follower;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name ="comment_userid")
+    @JoinColumn(name ="comment_user_id")
     private List<Comment> comments;
 
     @OneToMany(fetch = FetchType.LAZY)
@@ -30,4 +30,13 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "retweet_tweet_id")
     private List<Retweet> retweet_tweet_id;
+
+    public User(String username, String passwords) {
+        username = username;
+        passwords = passwords;
+    }
+
+    public User() {
+
+    }
 }

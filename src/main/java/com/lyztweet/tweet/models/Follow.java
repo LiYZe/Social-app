@@ -10,6 +10,9 @@ public class Follow {
     private long follow_id;
 
     @ManyToOne
+    private User follow_user;
+
+    @ManyToOne
     @JoinColumn(name = "followed")
     private User followed;
 
@@ -18,5 +21,17 @@ public class Follow {
     private User following;
 
     public Follow() {
+    }
+
+    public void setFollow_user(User follow_user) {
+        this.follow_user = follow_user;
+    }
+
+    public void setFollowed(User followed) {
+        this.followed = followed;
+    }
+
+    public void setFollowing(User following) {
+        this.following = following;
     }
 }
