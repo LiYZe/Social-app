@@ -8,6 +8,12 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface FollowRepository extends CrudRepository<Follow, Long> {
+    @Query(value = "insert into Follow(follow_user, following) value(?, :following)", nativeQuery = true)
+    boolean savefollowing(@Param("user")User user, @Param("following") User following);
+
+    @Query(value = "insert into Follow(follow_user, followed) value(:user, :followed)", nativeQuery = true)
+    boolean savefollowed(@Param("user")User user, @Param("followed") User followed);
+
     @Query(value = "delete from Follow f where f.follow_user = :user and f.following = :following")
     boolean deleteFollowing(@Param("user")User user, @Param("following") User following);
 
@@ -15,9 +21,9 @@ public interface FollowRepository extends CrudRepository<Follow, Long> {
     boolean deleteFollowed(@Param("user")User user, @Param("followed") User followed);
 
     @Query(value = "select f.following from Follow f where f.follow_user = :user")
-    List<Follow> findfollowning(@Param("user") User user);
+    List<User> findfollowning(@Param("user") User user);
 
     @Query(value = "select f.followed from Follow f where f.follow_user = :user")
-    List<Follow> findfollowed(@Param("user")User user);
+    List<User> findfollowed(@Param("user")User user);
 
 }

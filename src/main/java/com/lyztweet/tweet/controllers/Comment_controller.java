@@ -1,6 +1,7 @@
 package com.lyztweet.tweet.controllers;
 
 import com.lyztweet.tweet.Repositories.CommentRepository;
+import com.lyztweet.tweet.Repositories.TweetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.lyztweet.tweet.models.*;
@@ -14,24 +15,32 @@ public class Comment_controller {
 
     @Autowired
     CommentRepository commentRepository;
+    @Autowired
+    TweetRepository tweetRepository;
     //Post a Comment
     @PostMapping("/tweet/{tweet_id}/comment/")
-    public String postComment(@PathVariable("{tweet_id}") long tweet_id) {
+    public Comment postComment(@PathVariable("{tweet_id}") long tweet_id) {
+        Comment comment = new Comment();
+        comment.setComment_content("comment test");
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
-        commentRepository.save(new Comment("comment test", timestamp));
-        return "make a comment";
+        comment.setTime_stamp(timestamp);
+        return commentRepository.save(comment);
+
     }
 
     //Delete a Comment
     @DeleteMapping("/tweet/{tweet_id}/comment/{comment_id}")
-    public String deleteComment(@PathVariable("{tweet_id}") long tweet_id,@PathVariable("{comment_id}") long comment_id) {
-        commentRepository.deleteById(tweet_id, comment_id);
-        return "comment is deleted";
+    public boolean deleteComment(@PathVariable("{tweet_id}") long tweet_id,@PathVariable("{comment_id}") long comment_id) {
+        Tweet tweet = tweetRepository.findtargetTweet(tweet_id);
+        return commentRepository.deleteById(tweet, comment_id);
     }
 
-    @GetMapping("/tweet/{tweet_id}/comment/{comment_id}")
-    public List<Comment> getComment(@PathVariable("{tweet_id}") long tweet_id,@PathVariable("{comment_id}") long comment_id) {
-        return commentRepository.findById(tweet_id,comment_id);
+    //Get all the comment
+    @GetMapping("/tweet/{tweet_id}/comment/")
+    public List<Comment> getComment(@PathVariable("{tweet_id}") long tweet_id) {
+        Tweet tweet = tweetRepository.findtargetTweet(tweet_id);
+
+        return commentRepository.findById(tweet);
     }
 }

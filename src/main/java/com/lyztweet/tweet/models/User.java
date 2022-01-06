@@ -16,24 +16,32 @@ public class User {
     @Column(name = "passwords")
     public String passwords;
 
-    @OneToMany(mappedBy = "Follow")
-    private List<Follow> follower;
+    @OneToMany(mappedBy ="followed", fetch = FetchType.LAZY)
+    @JoinColumn(name = "followed")
+    private List<Follow> followed;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name ="comment_user_id")
+    @OneToMany(mappedBy ="following", fetch = FetchType.LAZY)
+    @JoinColumn(name = "following")
+    private List<Follow> following;
+
+    @OneToMany(mappedBy = "comment_user",fetch = FetchType.LAZY)
+    @JoinColumn(name = "comment_user")
     private List<Comment> comments;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "liked_tweet", fetch = FetchType.LAZY)
     @JoinColumn(name = "liked_tweet")
     private List<Likes> liked_tweet;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "retweet_tweet_id")
-    private List<Retweet> retweet_tweet_id;
+    @OneToMany(mappedBy = "retweet_tweet", fetch = FetchType.LAZY)
+    @JoinColumn(name = "retweet_tweet")
+    private List<Retweet> retweet_tweet;
 
-    public User(String username, String passwords) {
-        username = username;
-        passwords = passwords;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPasswords(String passwords) {
+        this.passwords = passwords;
     }
 
     public User() {

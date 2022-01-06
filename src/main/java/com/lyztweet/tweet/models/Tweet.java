@@ -20,16 +20,16 @@ public class Tweet implements Serializable {
     @Column(name = "time_line")
     public Timestamp time_line;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "comment_tweet_id")
+    @OneToMany(mappedBy = "comment_tweet", fetch = FetchType.EAGER)
+    @JoinColumn(name = "comment_tweet")
     public List<Comment> comments;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "liking_user",fetch = FetchType.LAZY)
     @JoinColumn(name = "liking_user")
     public List<Likes> liking_user;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "retweet_user_id")
+    @OneToMany(mappedBy = "retweet_user",fetch = FetchType.LAZY)
+    @JoinColumn(name = "retweet_user")
     public List<Retweet> retweet_user_id;
 
     public Tweet(String content, Timestamp time_line) {

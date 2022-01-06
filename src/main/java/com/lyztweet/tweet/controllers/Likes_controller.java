@@ -23,14 +23,14 @@ public class Likes_controller {
 
     //User like a tweet
     @PostMapping("/user/{id}/like/{tweet_id}")
-    public String postLike(@PathVariable("{id}") long id, @PathVariable("{tweet_id}") long tweet_id) {
+    public boolean postLike(@PathVariable("{id}") long id, @PathVariable("{tweet_id}") long tweet_id) {
         User user = userRepository.findtargetUser(id);
         Tweet tweet = tweetRepository.findtargetTweet(tweet_id);
         Likes likes = new Likes();
         likes.setLiked_tweet(tweet);
         likes.setLiking_user(user);
-        likesRepository.save(likes);
-        return "tweet is liked";
+
+        return likesRepository.save(likes);
     }
 
     //User undo like
@@ -41,19 +41,19 @@ public class Likes_controller {
         return likesRepository.deleteLikes(user, tweet);
     }
 
-    //Tweet liked by a user
+    //User who like a tweet
     @GetMapping("/tweet/{tweet_id}/liking_user")
-    public List<Likes> tweet_liking_user(@PathVariable("{tweet_id}") long tweet_id) {
+    public List<User> tweet_liking_user(@PathVariable("{tweet_id}") long tweet_id) {
         Tweet tweet = tweetRepository.findtargetTweet(tweet_id);
-        List<Likes> likes = likesRepository.findLiking_userByTweet(tweet);
+        List<User> likes = likesRepository.findLiking_userByTweet(tweet);
         return likes;
     }
 
-    //User who like a tweet
+    //Tweet liked by a user
     @GetMapping("/user/{id}/liked_tweet")
-    public List<Likes> user_liked_tweet(@PathVariable("{id}") long id) {
+    public List<Tweet> user_liked_tweet(@PathVariable("{id}") long id) {
         User user = userRepository.findtargetUser(id);
-        List<Likes> likes = likesRepository.findliked_tweetByUser(user);
+        List<Tweet> likes = likesRepository.findliked_tweetByUser(user);
         return likes;
     }
 }

@@ -14,9 +14,12 @@ public class User_controller {
     UserRepository userRepository;
     //Sign Up
     @PostMapping("/user")
-    public String Sign_Up() {
-        userRepository.save(new User("123","123"));
-        return "User is create";
+    public User Sign_Up() {
+        User user = new User();
+        user.setUsername("123");
+        user.setPasswords("123");
+
+        return userRepository.save(user);
     }
 
     //Sign In

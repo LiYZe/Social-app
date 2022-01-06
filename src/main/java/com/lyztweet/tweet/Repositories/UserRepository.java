@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface UserRepository extends CrudRepository<User, Long> {
-    List<User> save(User new_user);
+    User save(User new_user);
     List<User> findById(long id);
 
     @Query(value = "select * from User u where u.id = :id", nativeQuery = true)

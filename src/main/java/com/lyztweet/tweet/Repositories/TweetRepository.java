@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface TweetRepository extends CrudRepository<Tweet, Long> {
     List<Tweet> findById(long tweetID);
-    List<Tweet> save(Tweet new_tweet);
+    Tweet save(Tweet new_tweet);
 
     @Query(value = "delete from Tweet t where t.tweet_id = ?1")
     Boolean deleteByTweet_id(long tweet_id);

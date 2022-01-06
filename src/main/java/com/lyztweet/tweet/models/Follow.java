@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
+@Table(name = "follow")
 public class Follow {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
