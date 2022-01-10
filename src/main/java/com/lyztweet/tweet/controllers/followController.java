@@ -23,7 +23,7 @@ public class followController {
         boolean following_success = followRepository.savefollowing(user, new_following);
         boolean followed_success = followRepository.savefollowed(new_following, user);
 
-        return followed_success &&  followed_success;
+        return followed_success &&  following_success;
     }
 
     //unfollow a user

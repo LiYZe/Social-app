@@ -26,6 +26,14 @@ public class Likes {
         this.liking_user = liking_user;
     }
 
+    public Tweet getLiked_tweet() {
+        return liked_tweet;
+    }
+
+    public User getLiking_user() {
+        return liking_user;
+    }
+
     public Likes() {
     }
 }

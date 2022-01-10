@@ -27,7 +27,7 @@ public class likesController {
         likes.setLiked_tweet(tweet);
         likes.setLiking_user(user);
 
-        return likesRepository.save(likes);
+        return likesRepository.save(likes.getLiking_user(), likes.getLiked_tweet());
     }
 
     //User undo like
