@@ -32,9 +32,7 @@ public class User {
     @JoinColumn(name = "liked_tweet")
     private List<Likes> liked_tweet;
 
-    @OneToMany(mappedBy = "retweet_tweet", fetch = FetchType.LAZY)
-    @JoinColumn(name = "retweet_tweet")
-    private List<Retweet> retweet_tweet;
+
 
     public void setUsername(String username) {
         this.username = username;

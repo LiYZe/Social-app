@@ -7,8 +7,8 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface FollowRepository extends CrudRepository<Follow, Long> {
-    @Query(value = "insert into Follow(follow_user, following) value(?, :following)", nativeQuery = true)
+public interface followRepository extends CrudRepository<Follow, Long> {
+    @Query(value = "insert into Follow(follow_user, following) value(:user, :following)", nativeQuery = true)
     boolean savefollowing(@Param("user")User user, @Param("following") User following);
 
     @Query(value = "insert into Follow(follow_user, followed) value(:user, :followed)", nativeQuery = true)

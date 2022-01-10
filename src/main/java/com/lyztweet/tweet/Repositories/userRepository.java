@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface userRepository extends CrudRepository<User, Long> {
     User save(User new_user);
     List<User> findById(long id);
 

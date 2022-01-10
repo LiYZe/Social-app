@@ -6,12 +6,16 @@
 
 #### Tweet
 
-|                    | Method | URL               | Function                   | Return        |
-|--------------------|--------|-------------------|----------------------------|---------------|
-| Create a new Tweet | POST   | /tweet/           | postTweet()                | Tweet         |
-| Retrieve a Tweet   | GET    | /tweet/{tweet_id} | getTweet(long tweet_id)    | List< Tweet > |
-| Update a Tweet     | PUT    | /tweet/{tweet_id} | updateTweet(long tweet_id) | Boolean       |
-| Delete a Tweet     | DELETE | /tweet/{tweet_id} | deleteTweet(long tweet_id) | Boolean       |
+|                                       | Method | URL                                  | Function                              | Return        |
+|---------------------------------------|--------|--------------------------------------|---------------------------------------|---------------|
+| Create a new Tweet                    | POST   | /tweet/                              | postTweet()                           | Tweet         |
+| Retrieve a Tweet                      | GET    | /tweet/{tweet_id}                    | getTweet(long tweet_id)               | List< Tweet > |
+| Update a Tweet                        | PUT    | /tweet/{tweet_id}                    | updateTweet(long tweet_id)            | Boolean       |
+| Delete a Tweet                        | DELETE | /tweet/{tweet_id}                    | deleteTweet(long tweet_id)            | Boolean       |
+| Retweet by a user                     | Post   | /user/{id}/retweet/{source_tweet_id} | postRetweet(long id, long tweet_id)   | Tweet         |
+| Fetch the user who retweet this tweet | Get    | /tweet/{tweet_id}/retweet_by         | getRetweetuser(long tweet_id)         | List< User >  |
+| Delete retweet                        | Delete | /user/{id}/retweet/{source_tweet_id} | deleteRetweet(long id, long tweet_id) | Boolean       |
+
 
 #### Comment
 
@@ -21,14 +25,6 @@
 | Delete a comment  | DELETE | /tweet/{tweet_id}/comment/{comment_id} | deleteComment(long tweet_id, long comment_id) | Boolean         |
 | Get a comment     | GET    | /tweet/{tweet_id}/comment/{comment_id} | getComment(long tweet_id, long comment_id)    | List< Comment > |
 
-
-#### Retweet
-
-|                                       | Method | URL                           | Function                               | Return       |
-|---------------------------------------|--------|-------------------------------|----------------------------------------|--------------|
-| Retweet by a user                     | Post   | /user/{id}/retweet/{tweet_id} | user_retweet(long id, long tweet_id)   | Retweet      |
-| fetch the user who retweet this tweet | Get    | /tweet/{tweet_id}/retweet_by  | get_retweetby(long tweet_id)           | List< User > |
-| delete retweet                        | Delete | /user/{id}/retweet/{tweet_id} | delete_retweet(long id, long tweet_id) | Boolean      |
 
 #### Likes
 
@@ -79,14 +75,6 @@
 |     | Timestamp | time_line        |
 | FK  | Tweet     | comment_tweet_id |
 | FK  | User      | comment_user_id  |
-
-### Retweet
-
-| Key | Type  | Column          |
-|-----|-------|-----------------|
-| PK  | long  | retweet_id      |
-|     | Tweet | retweet_tweetid |
-|     | User  | retweeet_userid |
 
 ### User
 

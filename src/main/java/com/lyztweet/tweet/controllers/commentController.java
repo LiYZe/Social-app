@@ -1,7 +1,5 @@
 package com.lyztweet.tweet.controllers;
 
-import com.lyztweet.tweet.Repositories.CommentRepository;
-import com.lyztweet.tweet.Repositories.TweetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.lyztweet.tweet.models.*;
@@ -11,12 +9,12 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-public class Comment_controller {
+public class commentController {
 
     @Autowired
-    CommentRepository commentRepository;
+    com.lyztweet.tweet.Repositories.commentRepository commentRepository;
     @Autowired
-    TweetRepository tweetRepository;
+    com.lyztweet.tweet.Repositories.tweetRepository tweetRepository;
     //Post a Comment
     @PostMapping("/tweet/{tweet_id}/comment/")
     public Comment postComment(@PathVariable("{tweet_id}") long tweet_id) {

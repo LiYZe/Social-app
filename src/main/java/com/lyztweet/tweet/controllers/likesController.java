@@ -1,8 +1,5 @@
 package com.lyztweet.tweet.controllers;
 
-import com.lyztweet.tweet.Repositories.LikesRepository;
-import com.lyztweet.tweet.Repositories.TweetRepository;
-import com.lyztweet.tweet.Repositories.UserRepository;
 import com.lyztweet.tweet.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,16 +7,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
-public class Likes_controller {
+public class likesController {
 
     @Autowired
-    UserRepository userRepository;
+    com.lyztweet.tweet.Repositories.userRepository userRepository;
 
     @Autowired
-    TweetRepository tweetRepository;
+    com.lyztweet.tweet.Repositories.tweetRepository tweetRepository;
 
     @Autowired
-    LikesRepository likesRepository;
+    com.lyztweet.tweet.Repositories.likesRepository likesRepository;
 
     //User like a tweet
     @PostMapping("/user/{id}/like/{tweet_id}")

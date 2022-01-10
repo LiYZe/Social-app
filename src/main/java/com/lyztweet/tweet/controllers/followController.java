@@ -1,7 +1,5 @@
 package com.lyztweet.tweet.controllers;
 
-import com.lyztweet.tweet.Repositories.FollowRepository;
-import com.lyztweet.tweet.Repositories.UserRepository;
 import com.lyztweet.tweet.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -9,12 +7,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
-public class Follow_controller {
+public class followController {
     @Autowired
-    FollowRepository followRepository;
+    com.lyztweet.tweet.Repositories.followRepository followRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private com.lyztweet.tweet.Repositories.userRepository userRepository;
 
     //follow a user
     @PostMapping("/user/{source_user_id}/following/{target_user_id}")
