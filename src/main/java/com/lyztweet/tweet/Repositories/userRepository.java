@@ -10,7 +10,4 @@ import java.util.List;
 public interface userRepository extends CrudRepository<User, Long> {
     User save(User new_user);
     List<User> findById(long id);
-
-    @Query(value = "select * from User u where u.id = :id", nativeQuery = true)
-    User findtargetUser(@Param("id") long id);
 }

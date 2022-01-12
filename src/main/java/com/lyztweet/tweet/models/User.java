@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user",schema = "public")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,19 +16,19 @@ public class User {
     @Column(name = "passwords")
     public String passwords;
 
-    @OneToMany(mappedBy ="followed", fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "followed")
     private List<Follow> followed;
 
-    @OneToMany(mappedBy ="following", fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "following")
     private List<Follow> following;
 
-    @OneToMany(mappedBy = "comment_user",fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "comment_user")
     private List<Comment> comments;
 
-    @OneToMany(mappedBy = "liked_tweet", fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "liked_tweet")
     private List<Likes> liked_tweet;
 

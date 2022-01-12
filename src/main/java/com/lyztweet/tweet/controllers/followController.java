@@ -4,6 +4,7 @@ import com.lyztweet.tweet.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.*;
 
 @RestController
@@ -16,38 +17,54 @@ public class followController {
 
     //follow a user
     @PostMapping("/user/{source_user_id}/following/{target_user_id}")
-    public boolean follow_user(@PathVariable("source_user_id") long id, @PathVariable("target_User_id") long target_id) {
-        User user = userRepository.findtargetUser(id);
-        User new_following = userRepository.findtargetUser(target_id);
+    public boolean follow_user(@PathVariable("source_user_id") long id, @PathVariable("target_user_id") long target_id) {
+        List<User> user = userRepository.findById(id);
+        List<User> new_following = userRepository.findById(target_id);
 
-        boolean following_success = followRepository.savefollowing(user, new_following);
-        boolean followed_success = followRepository.savefollowed(new_following, user);
+        Follow following = new Follow();
+        following.setFollow_user(user.get(0));
+        following.setFollowing(new_following.get(0));
 
-        return followed_success &&  following_success;
+        Follow followed = new Follow();
+        followed.setFollow_user(new_following.get(0));
+        followed.setFollowed(user.get(0));
+
+        Follow res_following = followRepository.save(following);
+        Follow res_followed = followRepository.save(followed);
+
+        if(res_followed != null && res_following != null){
+            return true;
+        }
+
+        return false;
     }
 
     //unfollow a user
+    @Transactional
     @DeleteMapping("/user/{source_user_id}/following/{target_user_id}")
-    public boolean unfollow_user(@PathVariable("source_user_id") long id, @PathVariable("target_User_id") long target_id) {
-        User user = userRepository.findtargetUser(id);
-        User following = userRepository.findtargetUser(target_id);
+    public int unfollow_user(@PathVariable("source_user_id") long id, @PathVariable("target_user_id") long target_id) {
+        List<User> user = userRepository.findById(id);
+        List<User> following = userRepository.findById(target_id);
 
-        return followRepository.deleteFollowing(user,following) && followRepository.deleteFollowed(following, user);
+        int delete_following = followRepository.deleteFollowing(user.get(0),following.get(0));
+        int delete_followed = followRepository.deleteFollowed(following.get(0), user.get(0));
+
+        return  delete_followed + delete_following;
     }
 
     //check following
     @GetMapping("/user/{id}/following")
     public List<User> fetch_following(@PathVariable("id") long id) {
-        User user = userRepository.findtargetUser(id);
-        List<User> following = followRepository.findfollowning(user);
+        List<User> user = userRepository.findById(id);
+        List<User> following = followRepository.findfollowning(user.get(0));
         return following;
     }
 
     //check follower
     @GetMapping("/user/{id}/follower")
     public List<User> fetch_follower(@PathVariable("id") long id) {
-        User user = userRepository.findtargetUser(id);
-        List<User> followed = followRepository.findfollowed(user);
+        List<User> user = userRepository.findById(id);
+        List<User> followed = followRepository.findfollowed(user.get(0));
         return followed;
     }
 }

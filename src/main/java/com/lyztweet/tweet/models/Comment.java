@@ -26,6 +26,14 @@ public class Comment {
     public Comment() {
     }
 
+    public void setComment_user(User comment_user) {
+        this.comment_user = comment_user;
+    }
+
+    public void setComment_tweet(Tweet comment_tweet) {
+        this.comment_tweet = comment_tweet;
+    }
+
     public void setComment_content(String comment_content) {
         this.comment_content = comment_content;
     }
