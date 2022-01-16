@@ -10,10 +10,10 @@ import java.util.*;
 @RestController
 public class followController {
     @Autowired
-    com.lyztweet.tweet.Repositories.followRepository followRepository;
+    com.lyztweet.tweet.repositories.followRepository followRepository;
 
     @Autowired
-    private com.lyztweet.tweet.Repositories.userRepository userRepository;
+    private com.lyztweet.tweet.repositories.userRepository userRepository;
 
     //follow a user
     @PostMapping("/user/{source_user_id}/following/{target_user_id}")

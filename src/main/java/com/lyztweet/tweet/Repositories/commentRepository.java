@@ -1,4 +1,4 @@
-package com.lyztweet.tweet.Repositories;
+package com.lyztweet.tweet.repositories;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

@@ -10,7 +10,7 @@ import java.util.List;
 public class userController {
 
     @Autowired
-    com.lyztweet.tweet.Repositories.userRepository userRepository;
+    com.lyztweet.tweet.repositories.userRepository userRepository;
     //Sign Up
     @PostMapping("/user")
     public User Sign_Up() {

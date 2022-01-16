@@ -13,10 +13,10 @@ import java.util.List;
 @RestController
 public class tweetController {
     @Autowired
-    com.lyztweet.tweet.Repositories.tweetRepository tweetRepository;
+    com.lyztweet.tweet.repositories.tweetRepository tweetRepository;
 
     @Autowired
-    com.lyztweet.tweet.Repositories.userRepository userRepository;
+    com.lyztweet.tweet.repositories.userRepository userRepository;
 
     //create a new Tweet
     @PostMapping("/tweet")

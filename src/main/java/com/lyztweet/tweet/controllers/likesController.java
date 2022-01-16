@@ -11,13 +11,13 @@ import java.util.*;
 public class likesController {
 
     @Autowired
-    com.lyztweet.tweet.Repositories.userRepository userRepository;
+    com.lyztweet.tweet.repositories.userRepository userRepository;
 
     @Autowired
-    com.lyztweet.tweet.Repositories.tweetRepository tweetRepository;
+    com.lyztweet.tweet.repositories.tweetRepository tweetRepository;
 
     @Autowired
-    com.lyztweet.tweet.Repositories.likesRepository likesRepository;
+    com.lyztweet.tweet.repositories.likesRepository likesRepository;
 
     //User like a tweet
 

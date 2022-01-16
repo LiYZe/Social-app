@@ -13,9 +13,9 @@ import java.util.List;
 public class commentController {
 
     @Autowired
-    com.lyztweet.tweet.Repositories.commentRepository commentRepository;
+    com.lyztweet.tweet.repositories.commentRepository commentRepository;
     @Autowired
-    com.lyztweet.tweet.Repositories.tweetRepository tweetRepository;
+    com.lyztweet.tweet.repositories.tweetRepository tweetRepository;
 
     //Post a Comment
     @PostMapping("/tweet/{tweet_id}/comment/")

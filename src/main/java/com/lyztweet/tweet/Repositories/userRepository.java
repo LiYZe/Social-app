@@ -1,9 +1,7 @@
-package com.lyztweet.tweet.Repositories;
+package com.lyztweet.tweet.repositories;
 
 import com.lyztweet.tweet.models.*;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
