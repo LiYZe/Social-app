@@ -1,35 +1,92 @@
 package com.lyztweet.tweet.dao;
 
-import com.lyztweet.tweet.entity.Comment;
-import com.lyztweet.tweet.entity.Tweet;
+import com.lyztweet.tweet.entity.userEntity;
+import com.lyztweet.tweet.entity.tweetEntity;
+import com.lyztweet.tweet.models.*;
+import com.lyztweet.tweet.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Repository
 public class tweetDao {
-    public static final String HASH_KEY = "Tweet";
+
+    public static final String HASH_KEY = "tweetEntity";
     @Autowired
     private RedisTemplate template;
+    @Autowired
+    userDao userDao;
+    @Autowired
+    tweetRepository tweetRepository;
+    @Autowired
+    userRepository userRepository;
 
-    public Tweet save(Tweet tweet){
-        template.opsForHash().put(HASH_KEY,tweet.getTweet_id(),tweet);
-        return tweet;
+    Date date = new Date();
+    Timestamp timestamp = new Timestamp(date.getTime());
+
+    public Object save(tweetEntity tweetEntity){
+
+        Tweet tweet = new Tweet();
+        tweet.setContent(tweetEntity.getContent());
+        tweet.setTime_stamp(timestamp);
+
+        tweetEntity.setTime_stamp(timestamp);
+
+        tweetRepository.save(tweet);
+        template.opsForHash().put(HASH_KEY, tweet.getTweet_id(), tweetEntity);
+        return tweetEntity;
     }
 
-    public List<Tweet> findAll(){
-        return template.opsForHash().values(HASH_KEY);
+    public Object getTweet(long tweet_id) {
+        List<Tweet> tweet = tweetRepository.findById(tweet_id);
+        tweet_id = tweet.get(0).getSource_tweet_id() == -1 ? tweet_id : tweet.get(0).getSource_tweet_id();
+        if(template.opsForHash().get(HASH_KEY,tweet_id) != null){
+            return (tweetEntity) template.opsForHash().get(HASH_KEY,tweet_id);
+        }
+        return tweetRepository.findById(tweet_id);
     }
 
-    public Tweet findTweetById(int tweet_id){
-        return (Tweet) template.opsForHash().get(HASH_KEY,tweet_id);
-    }
+    public int updateTweet(long tweet_id, tweetEntity tweetEntity) {
+        Tweet tweet = new Tweet();
+        tweet.setTime_stamp(timestamp);
+        tweet.setContent(tweetEntity.getContent());
+        tweetRepository.updateByTweet_id(tweet_id, tweet.getContent(), tweet.getTime_stamp());
 
-
-    public String deleteTweet(int tweet_id){
         template.opsForHash().delete(HASH_KEY,tweet_id);
-        return "tweet removed !!";
+        template.opsForHash().put(HASH_KEY, tweet.getTweet_id(), tweetEntity);
+        return 1;
+    }
+
+    public int deleteTweet(long tweet_id) {
+        tweetRepository.deleteByTweet_id(tweet_id);
+        template.opsForHash().delete(HASH_KEY,tweet_id);
+        return 1;
+    }
+
+    public tweetEntity postRetweet(long id, long source_tweet_id, tweetEntity tweetEntity) {
+        List<userEntity> user = new ArrayList<>();
+        user.add((userEntity)userDao.findUserById(id));
+        tweetEntity.setSource_tweet_id(source_tweet_id);
+        tweetEntity.setRetweet_user(user);
+
+        List<User> user_db = userRepository.findById(id);
+        Tweet tweet = new Tweet();
+        tweet.setRetweet_user(user_db);
+        tweet.setSource_tweet_id(source_tweet_id);
+        tweet.setContent(tweetEntity.getContent());
+        tweetRepository.save(tweet);
+
+        template.opsForHash().put(HASH_KEY, tweet.getTweet_id(), tweetEntity);
+        return tweetEntity;
+    }
+
+
+    public List<User> getRetweetuser(long tweet_id) {
+        return tweetRepository.findRetweetuser(tweet_id);
     }
 }

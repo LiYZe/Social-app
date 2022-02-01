@@ -1,8 +1,12 @@
 package com.lyztweet.tweet.dao;
 
-import com.lyztweet.tweet.entity.Likes;
+import com.lyztweet.tweet.models.Likes;
+import com.lyztweet.tweet.models.Tweet;
+import com.lyztweet.tweet.models.User;
+import com.lyztweet.tweet.repositories.likesRepository;
+import com.lyztweet.tweet.repositories.tweetRepository;
+import com.lyztweet.tweet.repositories.userRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -10,25 +14,37 @@ import java.util.List;
 @Repository
 public class likesDao {
 
-    public static final String HASH_KEY = "likes";
     @Autowired
-    private RedisTemplate template;
+    userRepository userRepository;
+    @Autowired
+    tweetRepository tweetRepository;
+    @Autowired
+    likesRepository likesRepository;
 
-    public Likes save(Likes likes){
-        template.opsForHash().put(HASH_KEY,likes.getLikes_id(),likes);
+    public Likes save(long id, long tweet_id) {
+        List<User> user = userRepository.findById(id);
+        List<Tweet> tweet = tweetRepository.findById(tweet_id);
+        Likes likes = new Likes();
+        likes.setLiked_tweet(tweet.get(0));
+        likes.setLiking_user(user.get(0));
+        return likesRepository.save(likes);
+    }
+
+    public List<Tweet> user_liked_tweet( long id) {
+        List<User> user = userRepository.findById(id);
+        List<Tweet> likes = likesRepository.findliked_tweetByUser(user.get(0));
         return likes;
     }
 
-    public List<Likes> findAll(){
-        return template.opsForHash().values(HASH_KEY);
+    public List<User> tweet_liking_user(long tweet_id) {
+        List<Tweet> tweet = tweetRepository.findById(tweet_id);
+        List<User> likes = likesRepository.findLiking_userByTweet(tweet.get(0));
+        return likes;
     }
 
-    public Likes findLikesById(long likes_id){
-        return (Likes) template.opsForHash().get(HASH_KEY,likes_id);
-    }
-
-    public String deleteLikes(long likes_id){
-        template.opsForHash().delete(HASH_KEY,likes_id);
-        return "likes removed !!";
+    public int deleteLikes(long id, long tweet_id) {
+        List<User> user = userRepository.findById(id);
+        List<Tweet> tweet = tweetRepository.findById(tweet_id);
+        return likesRepository.deleteLikes(user.get(0), tweet.get(0));
     }
 }

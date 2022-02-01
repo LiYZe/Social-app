@@ -1,9 +1,15 @@
 package com.lyztweet.tweet.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.redis.core.RedisHash;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
+
 
 @Entity
 @Table(name = "tweet")
@@ -21,7 +27,7 @@ public class Tweet implements Serializable {
     public Timestamp time_stamp;
 
     @Column(name = "source_tweet_id")
-    public long source_tweet_id;
+    public long source_tweet_id = -1;
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "comment_tweet")
@@ -39,6 +45,10 @@ public class Tweet implements Serializable {
         this.content = content;
         this.time_stamp = time_stamp;
         this.source_tweet_id = -1;
+    }
+
+    public Tweet() {
+
     }
 
     public void setContent(String content) {
@@ -65,7 +75,31 @@ public class Tweet implements Serializable {
         this.retweet_user = retweet_user;
     }
 
-    public Tweet() {
+    public long getTweet_id() {
+        return tweet_id;
+    }
 
+    public String getContent() {
+        return content;
+    }
+
+    public Timestamp getTime_stamp() {
+        return time_stamp;
+    }
+
+    public long getSource_tweet_id() {
+        return source_tweet_id;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public List<Likes> getLiking_user() {
+        return liking_user;
+    }
+
+    public List<User> getRetweet_user() {
+        return retweet_user;
     }
 }

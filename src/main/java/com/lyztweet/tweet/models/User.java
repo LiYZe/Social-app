@@ -1,11 +1,12 @@
 package com.lyztweet.tweet.models;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "user",schema = "public")
-public class User {
+@Table(name = "user")
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -32,8 +33,6 @@ public class User {
     @JoinColumn(name = "liked_tweet")
     private List<Likes> liked_tweet;
 
-
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -42,7 +41,15 @@ public class User {
         this.passwords = passwords;
     }
 
-    public User() {
+    public long getId() {
+        return id;
+    }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPasswords() {
+        return passwords;
     }
 }

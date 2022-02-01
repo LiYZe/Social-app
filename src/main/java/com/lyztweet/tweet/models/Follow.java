@@ -1,11 +1,10 @@
 package com.lyztweet.tweet.models;
-
 import javax.persistence.*;
-import java.util.*;
+import java.io.Serializable;
 
 @Entity
-@Table(name = "follow")
-public class Follow {
+@Table(name = "followEntity")
+public class Follow implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long follow_id;
@@ -20,9 +19,6 @@ public class Follow {
     @ManyToOne
     @JoinColumn(name = "following")
     private User following;
-
-    public Follow() {
-    }
 
     public void setFollow_user(User follow_user) {
         this.follow_user = follow_user;

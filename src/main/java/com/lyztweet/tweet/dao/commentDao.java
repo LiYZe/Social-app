@@ -1,34 +1,39 @@
 package com.lyztweet.tweet.dao;
 
-import com.lyztweet.tweet.entity.Comment;
+import com.lyztweet.tweet.models.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
+import com.lyztweet.tweet.repositories.*;
+import com.lyztweet.tweet.models.*;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Repository
 public class commentDao {
-    public static final String HASH_KEY = "Comment";
     @Autowired
-    private RedisTemplate template;
+    commentRepository commentRepository;
+    @Autowired
+    tweetRepository tweetRepository;
 
-    public Comment save(Comment comment){
-        template.opsForHash().put(HASH_KEY,comment.getComment_id(),comment);
-        return comment;
+    public Comment save(long tweet_id){
+        Comment comment = new Comment();
+        comment.setComment_content("comment test");
+        Date date = new Date();
+        Timestamp timestamp = new Timestamp(date.getTime());
+        comment.setTime_stamp(timestamp);
+        List<Tweet> tweet = tweetRepository.findById(tweet_id);
+        comment.setComment_tweet(tweet.get(0));
+        return commentRepository.save(comment);
     }
 
-    public List<Comment> findAll(){
-        return template.opsForHash().values(HASH_KEY);
+    public int deleteComment(long comment_id){
+        return commentRepository.deleteByComment_id(comment_id);
     }
 
-    public Comment findCommentById(long comment_id){
-        return (Comment) template.opsForHash().get(HASH_KEY,comment_id);
-    }
-
-
-    public String deleteComment(long comment_id){
-        template.opsForHash().delete(HASH_KEY,comment_id);
-        return "comment removed !!";
+    public List<Comment> findCommentById(long tweet_id){
+        List<Tweet> tweet = tweetRepository.findById(tweet_id);
+        return commentRepository.findAllByComment_tweet(tweet.get(0));
     }
 }

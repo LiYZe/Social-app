@@ -1,11 +1,12 @@
 package com.lyztweet.tweet.models;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "comment")
-public class Comment {
+@Table(name = "commentEntity")
+public class Comment implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,8 +24,7 @@ public class Comment {
     @ManyToOne
     public Tweet comment_tweet;
 
-    public Comment() {
-    }
+
 
     public void setComment_user(User comment_user) {
         this.comment_user = comment_user;

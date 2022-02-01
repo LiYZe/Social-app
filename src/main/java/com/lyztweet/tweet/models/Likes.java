@@ -1,11 +1,12 @@
 package com.lyztweet.tweet.models;
 
 import javax.persistence.*;
-import java.util.List;
+import java.io.Serializable;
+
 
 @Entity
-@Table(name = "likes")
-public class Likes {
+@Table(name = "likesEntity")
+public class Likes implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long likes_id;
@@ -32,8 +33,5 @@ public class Likes {
 
     public User getLiking_user() {
         return liking_user;
-    }
-
-    public Likes() {
     }
 }

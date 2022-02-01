@@ -16,5 +16,4 @@ public interface commentRepository extends CrudRepository<Comment, Long> {
 
     @Query(value = "Select c from Comment c where c.comment_tweet = :tweet")
     List<Comment> findAllByComment_tweet(@Param("tweet") Tweet tweet);
-
 }
