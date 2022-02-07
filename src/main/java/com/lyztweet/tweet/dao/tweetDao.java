@@ -1,10 +1,12 @@
 package com.lyztweet.tweet.dao;
 
+import com.lyztweet.tweet.entity.followEntity;
 import com.lyztweet.tweet.entity.userEntity;
 import com.lyztweet.tweet.entity.tweetEntity;
 import com.lyztweet.tweet.models.*;
 import com.lyztweet.tweet.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +20,7 @@ public class tweetDao {
 
     public static final String HASH_KEY = "tweetEntity";
     @Autowired
+    @Qualifier("redisTemplate")
     private RedisTemplate template;
     @Autowired
     userDao userDao;
@@ -25,20 +28,37 @@ public class tweetDao {
     tweetRepository tweetRepository;
     @Autowired
     userRepository userRepository;
+    @Autowired
+    followRepository followRepository;
 
     Date date = new Date();
     Timestamp timestamp = new Timestamp(date.getTime());
 
-    public Object save(tweetEntity tweetEntity){
+    public Object save(long id, tweetEntity tweetEntity){
 
         Tweet tweet = new Tweet();
         tweet.setContent(tweetEntity.getContent());
         tweet.setTime_stamp(timestamp);
-
         tweetEntity.setTime_stamp(timestamp);
-
         tweetRepository.save(tweet);
         template.opsForHash().put(HASH_KEY, tweet.getTweet_id(), tweetEntity);
+
+        //write timeline
+        userEntity userEntity = (userEntity) template.opsForHash().get(HASH_KEY, id);
+        if(userEntity.isVip()){
+            List<Long> timeline = userEntity.getTimeline();
+            timeline.add(tweet.getTweet_id());
+            userEntity.setTimeline(timeline);
+        }else{
+            List<followEntity> followed = userEntity.getFollowed();
+            for(followEntity f: followed){
+                userEntity followed_user = f.getFollowed();
+                List<Long> timeline = followed_user.getTimeline();
+                timeline.add(tweet.getTweet_id());
+                followed_user.setTimeline(timeline);
+            }
+        }
+        template.opsForHash().put(HASH_KEY,id,userEntity);
         return tweetEntity;
     }
 

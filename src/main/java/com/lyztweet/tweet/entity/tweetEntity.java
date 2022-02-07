@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.redis.core.RedisHash;
+import com.lyztweet.tweet.entity.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
